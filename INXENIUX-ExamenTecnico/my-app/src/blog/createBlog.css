@@ -1,0 +1,30 @@
+/* Add styles for the form container */
+.form-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  border-radius: 5px;
+  z-index: 999; /* Make sure the form appears on top of other content */
+}
+
+/* Add styles to make the form visible when it's open */
+.form-container.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Style the form content inside the container */
+.form-content {
+  /* Add any specific styling for the form content here */
+}
+
+/* Style the close button */
+.close-btn {
+  margin-top: 10px;
+}
+
+
