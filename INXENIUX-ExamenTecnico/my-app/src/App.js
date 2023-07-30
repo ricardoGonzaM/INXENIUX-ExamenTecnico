@@ -3,7 +3,7 @@ import './App.css';
 
 //importamos componentes
 import CompShowBlogs from './blog/ShowBlog.js';
-import CompCreateBlog from './blog/CreateBlog.js';
+/*import CompCreateBlog from './blog/CreateBlog.js';*/
 import CompEditBlog from './blog/EditBlog.js';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 

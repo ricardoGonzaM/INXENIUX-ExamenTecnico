@@ -1,70 +1,95 @@
-import axios from "axios"
-import {useState, useEffect} from "react"
-import {Link} from "react-router-dom"
-import CompCreateBlog from "./CreateBlog"
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import FormModal from "./formModal"
+import swal from "sweetalert";
+import DataTable from 'datatables.net-dt';
 
-const URI = 'http://localhost:8000/blogs/'
-
+const URI = "http://localhost:8000/blogs/gene";
 
 const CompShowBlogs = () => {
 
-  const [isFormOpen, setFormOpen] = useState(false);
+  let table = new DataTable('#myTable');
 
-  const openForm = () => {
-    setFormOpen(true);
-  };
-
-  const closeForm = () => {
-    setFormOpen(false);
-  };
-
-  const [blogs, setBlog] = useState([])
-  useEffect( () => {
-    getBlogs()
-  },[])
+  const [blogs, setBlog] = useState([]);
+  useEffect(() => {
+    getBlogs();
+  }, []);
 
   //procedimiento para mostrar todos los datos de blogs
   const getBlogs = async () => {
-    const res = await axios.get(URI)
-    setBlog(res.data)
-  }
+    const res = await axios.get(URI);
+    setBlog(res.data);
+  };
   //procedimiento para eliminar un dato del blog
   const deleteBlog = async (id) => {
-    await axios.delete(`${URI}${id}`)
-    getBlogs()
-  }
+    swal({
+      title: "Eliminar",
+      text: "Estas seguro que deseas eliminar este usuario?",
+      icon: "warning",
+      buttons: ["No", "Si"],
+    }).then((Respuesta) => {
+      if (Respuesta) {
+        (async () => {
+          await axios.delete(`${URI}${id}`);
+          getBlogs();
+        })();
+        swal({
+          text: "El archivo ha sido eliminado",
+          icon: "success",
+          timer: 3000,
+        });
+      }
+    });
+  };
 
   return (
-    <div className='container'>
-      <div className='row'>
-        <div className='col'>
-          <table className='table table-dark table-striped mt-4 mb-4'>
-            <thead className='table-primary'>
+    <div className="container">
+      <div className="row">
+        <div className="col">
+        {/*tabla de vizualizacion*/}
+          <table className="table table-dark mt-4 mb-4">
+            <thead className="table-primary">
               <tr>
-                <th>title</th>
-                <th>content</th>
+                <th>Nombre</th>
+                <th>Apellido Paterno</th>
+                <th>Apellido Materno</th>
+                <th>Edad</th>
+                <th>Sexo</th>
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
-              { blogs.map ( (blog) => (
-                <tr key={ blog.id}>
-                  <td>{ blog.title }</td>
-                  <td>{ blog.content }</td>
+              {blogs.map((blog) => (
+                <tr key={blog.id}>
+                  <td>{blog.Nombre}</td>
+                  <td>{blog.Ap_Paterno}</td>
+                  <td>{blog.Ap_Materno}</td>
+                  <td>{blog.Edad}</td>
+                  <td>{blog.Sexo}</td>
                   <td>
-                        <Link to={'/edit/${blog.id}'} className='btn btn-info'><i className="fa-solid fa-pen"></i></Link>
-                        <button onClick={ ()=>deleteBlog(blog.id)} className='btn btn-danger'><i className="fa-solid fa-trash"></i></button>
+                    <Link
+                      to={`/edit/${blog.id}`}
+                      className="btn btn-info buttons"
+                    >
+                      <i className="fa-solid fa-pen"></i>
+                    </Link>
+                    <button
+                      onClick={() => deleteBlog(blog.id)}
+                      className="btn btn-danger buttons"
+                    >
+                      <i className="fa-solid fa-trash"></i>
+                    </button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <button className='btn btn-primary mt-2 mb-2' onClick={openForm}><i className="fa-solid fa-plus"></i> Nuevo </button>
-          {isFormOpen && <CompCreateBlog isOpen={isFormOpen} onClose={closeForm}></CompCreateBlog>}
+          <FormModal/>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default CompShowBlogs;

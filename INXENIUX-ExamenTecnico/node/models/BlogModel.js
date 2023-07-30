@@ -1,12 +1,15 @@
-//Importacion de la base de datos
+//Importacion de la base de datos de datos de generales
 import db from "../database/db.js";
 
 import { DataTypes } from "sequelize";
 
-const Blogmodel = db.define('blogs', {
+const General = db.define('generales', {
     
-    title:{ type: DataTypes.STRING},
-    content:{type: DataTypes.STRING},
+    Nombre:{ type: DataTypes.STRING},
+    Ap_Paterno:{type: DataTypes.STRING},
+    Ap_Materno:{type: DataTypes.STRING},
+    Edad:{type: DataTypes.NUMBER},
+    Sexo:{type: DataTypes.STRING},
 })
 
-export default Blogmodel
+export default General 
