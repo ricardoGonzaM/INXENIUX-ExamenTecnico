@@ -1,11 +1,19 @@
+/*
+  TODO:
+    - Cambia nombres de funciones y variables a español y nombres significativos
+    - Agrega comentarios en español
+    - Dale formato a documentos
+    - Cambiar colores
+    - Haz obligatorio generales
+*/
+
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const URI = "http://localhost:8000/blogs/gene/";
 
-const CompEditBlog = ({id}) => {
-  
+const CompEditBlog = ({ id }) => {
   /*Generales*/
   const [Nombre, setNombre] = useState("");
   const [Ap_Paterno, setAp_Paterno] = useState("");
@@ -30,20 +38,18 @@ const CompEditBlog = ({id}) => {
   const [Libros, setLibros] = useState("");
   /*Fin de Particulares*/
 
-  const handleCheckboxInters_Pers = (event) => {
+  const Check_Pers = (event) => {
     const { name, checked } = event.target;
-    
+
     if (checked === false) {
-      console.log("no-check")
+      console.log("no-check");
       console.log("Antes: " + I_pers);
       let prev = I_pers;
       prev = prev.replace(`${name}`, "");
       setI_pers(prev);
       console.log("Despues: " + I_pers);
-    }
-
-    else {
-      console.log("check")
+    } else {
+      console.log("check");
       console.log("Antes: " + I_pers);
       let prev = I_pers;
       prev += `${name}`;
@@ -52,62 +58,61 @@ const CompEditBlog = ({id}) => {
     }
   };
 
-  
-  const handleCheckboxPref = (event) => {
-    
+  const CheckboxPref = (event) => {
     const { name, checked } = event.target;
-    
+
     if (checked === false) {
-      console.log("no-check")
+      console.log("no-check");
       let prev = D_Pref;
       prev = prev.replace(`${name}`, "");
-      setD_Pref(prev)
-    }
-
-    else {
-      console.log("check")
+      setD_Pref(prev);
+    } else {
+      console.log("check");
       let prev = D_Pref;
       prev += `${name}`;
       setD_Pref(prev);
     }
-    
   };
 
-
   const navigate = useNavigate();
-  
+
   let newId = id.replace("#id", "");
   //procedimiento para actualizar
   const updateForm = async (e) => {
-    const update1 = await axios.put("http://localhost:8000/blogs/dire/" + newId, {
+    const update1 = await axios.put(
+      "http://localhost:8000/blogs/dire/" + newId,
+      {
         Calle: Calle,
         N_Int: N_Int,
         N_Ext: N_Ext,
         Colonia: Colonia,
         Municipio: Municipio,
         Estado: Estado,
-      });
+      }
+    );
 
-      
-      const update2 = await axios.put("http://localhost:8000/blogs/part/" + newId, {
-          I_pers: I_pers,
-          D_Pref: D_Pref,
-          T_Hab: T_Hab,
-          I_Mens: I_Mens,
-          V_año: V_año,
-          Libros: Libros,
-        });
+    const update2 = await axios.put(
+      "http://localhost:8000/blogs/part/" + newId,
+      {
+        I_pers: I_pers,
+        D_Pref: D_Pref,
+        T_Hab: T_Hab,
+        I_Mens: I_Mens,
+        V_año: V_año,
+        Libros: Libros,
+      }
+    );
 
-        const update3 = await axios.put(URI + newId, {
-            Nombre: Nombre,
-            Ap_Paterno: Ap_Paterno,
-            Ap_Materno: Ap_Materno,
-            Edad: Edad,
-            Sexo: Sexo,
-          });
+    const update3 = await axios.put(URI + newId, {
+      Nombre: Nombre,
+      Ap_Paterno: Ap_Paterno,
+      Ap_Materno: Ap_Materno,
+      Edad: Edad,
+      Sexo: Sexo,
+    });
 
-        window.location.reload();
-  }
+    window.location.reload();
+  };
 
   useEffect(() => {
     getBlogById();
@@ -145,19 +150,22 @@ const CompEditBlog = ({id}) => {
   };
 
   const myStyle = {
-    color: 'black'
-  }
+    color: "black",
+  };
 
   return (
     <div>
+    {/*Boton para editar datos del usuario*/}
       <button
         type="button"
         className="btn btn-info buttons"
         data-toggle="modal"
-        data-target= {`#${id}`}
+        data-target={`#${id}`}
       >
-        <i className="fa-solid fa-pen"></i>
+        <i className="fa-solid fa-pen" style={{color: "#fcfcfc",}}></i>
       </button>
+    {/*Fin de boton para editar datos del usuario*/}
+    {/*Modal para editar datos del usuario*/}
       <div
         className="modal fade modal-lg"
         id={id}
@@ -272,8 +280,8 @@ const CompEditBlog = ({id}) => {
                     </div>
                   </div>
                 </fieldset>
-              {/* Direccion */}
-              
+                {/* Direccion */}
+
                 <fieldset className="field-container row form-group">
                   <legend>Direccion</legend>
                   {/* Calle */}
@@ -377,9 +385,9 @@ const CompEditBlog = ({id}) => {
                     </div>
                   </div>
                 </fieldset>
-              
-              {/* Particulares */}
-              <fieldset className="field-container row form-group">
+
+                {/* Particulares */}
+                <fieldset className="field-container row form-group">
                   <legend>Particulares</legend>
                   {/* Inters pers */}
                   <div className="input-group mb-3 alert">
@@ -399,7 +407,7 @@ const CompEditBlog = ({id}) => {
                           id="Música"
                           name="Musica"
                           checked={I_pers.includes("Musica")}
-                          onChange={handleCheckboxInters_Pers}
+                          onChange={Check_Pers}
                         />
                         <label className="form-check-label" htmlFor="Música">
                           Música
@@ -413,7 +421,7 @@ const CompEditBlog = ({id}) => {
                           id="Cine"
                           name="Cine"
                           checked={I_pers.includes("Cine")}
-                          onChange={handleCheckboxInters_Pers}
+                          onChange={Check_Pers}
                         />
                         <label className="form-check-label" htmlFor="Cine">
                           Cine
@@ -427,7 +435,7 @@ const CompEditBlog = ({id}) => {
                           id="Modelado"
                           name="Modelado"
                           checked={I_pers.includes("Modelado")}
-                          onChange={handleCheckboxInters_Pers}
+                          onChange={Check_Pers}
                         />
                         <label className="form-check-label" htmlFor="Modelado">
                           Modelado
@@ -441,7 +449,7 @@ const CompEditBlog = ({id}) => {
                           id="Compras"
                           name="Compras"
                           checked={I_pers.includes("Compras")}
-                          onChange={handleCheckboxInters_Pers}
+                          onChange={Check_Pers}
                         />
                         <label className="form-check-label" htmlFor="Compras">
                           Compras
@@ -467,7 +475,7 @@ const CompEditBlog = ({id}) => {
                           id="Desierto"
                           name="Desierto"
                           checked={D_Pref.includes("Desierto")}
-                          onChange={handleCheckboxPref}
+                          onChange={CheckboxPref}
                         />
                         <label className="form-check-label" htmlFor="Desierto">
                           Desierto
@@ -481,7 +489,7 @@ const CompEditBlog = ({id}) => {
                           id="Playa"
                           name="Playa"
                           checked={D_Pref.includes("Playa")}
-                          onChange={handleCheckboxPref}
+                          onChange={CheckboxPref}
                         />
                         <label className="form-check-label" htmlFor="Playa">
                           Playa
@@ -495,7 +503,7 @@ const CompEditBlog = ({id}) => {
                           id="Ciudad"
                           name="Ciudad"
                           checked={D_Pref.includes("Ciudad")}
-                          onChange={handleCheckboxPref}
+                          onChange={CheckboxPref}
                         />
                         <label className="form-check-label" htmlFor="Ciudad">
                           Ciudad
@@ -509,7 +517,7 @@ const CompEditBlog = ({id}) => {
                           id="Montaña"
                           name="Montaña"
                           checked={D_Pref.includes("Montaña")}
-                          onChange={handleCheckboxPref}
+                          onChange={CheckboxPref}
                         />
                         <label className="form-check-label" htmlFor="Montaña">
                           Montaña
@@ -622,20 +630,21 @@ const CompEditBlog = ({id}) => {
                     </div>
                   </div>
                 </fieldset>
-              <button type="submit" className="btn btn-primary buttons ">
-                <strong>Guardar</strong>
-              </button>
-              <button
-                type="button"
-                className="btn btn-secondary buttons"
-                data-dismiss="modal"
-              >
-                Cerrar
-              </button>
+                <button type="submit" className="btn btn-primary buttons ">
+                  <strong>Guardar</strong>
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-secondary buttons"
+                  data-dismiss="modal"
+                >
+                  Cerrar
+                </button>
               </form>
             </div>
           </div>
         </div>
+        {/*Fin de modal para editar datos del usuario*/}
       </div>
     </div>
   );

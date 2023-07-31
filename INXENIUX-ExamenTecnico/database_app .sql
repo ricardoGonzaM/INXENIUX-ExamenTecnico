@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-07-2023 a las 10:10:52
+-- Tiempo de generación: 01-08-2023 a las 01:45:36
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -28,6 +28,24 @@ SET time_zone = "+00:00";
 -- (Véase abajo para la vista actual)
 --
 CREATE TABLE `all_data` (
+`id` int(100)
+,`Nombre` varchar(250)
+,`Ap_Paterno` varchar(200)
+,`Ap_Materno` varchar(200)
+,`Edad` int(3)
+,`Sexo` varchar(10)
+,`Calle` varchar(100)
+,`N_Int` int(10)
+,`N_Ext` int(10)
+,`Colonia` varchar(100)
+,`Municipio` varchar(100)
+,`Estado` varchar(100)
+,`I_pers` varchar(100)
+,`D_Pref` varchar(100)
+,`T_Hab` varchar(100)
+,`I_Mens` varchar(100)
+,`V_año` varchar(100)
+,`Libros` varchar(30)
 );
 
 -- --------------------------------------------------------
@@ -46,13 +64,6 @@ CREATE TABLE `direccions` (
   `Estado` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `direccions`
---
-
-INSERT INTO `direccions` (`id`, `Calle`, `N_Int`, `N_Ext`, `Colonia`, `Municipio`, `Estado`) VALUES
-(1, 'fdfds', 11, 12, 'dsfs', 'sdfs', 'sdf');
-
 -- --------------------------------------------------------
 
 --
@@ -68,19 +79,6 @@ CREATE TABLE `generales` (
   `Sexo` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `generales`
---
-
-INSERT INTO `generales` (`id`, `Nombre`, `Ap_Paterno`, `Ap_Materno`, `Edad`, `Sexo`) VALUES
-(1, 'Ricardo', 'Gonzalez', 'Mendez', 23, 'Masculino'),
-(2, 'Juan', 'perez', 'Mendez', 26, 'Masculino'),
-(13, 'Maria', 'Garcilita', '', 0, ''),
-(16, 'Misael', 'Guido', 'Lopez', 23, 'Hombre'),
-(17, 'Maria', 'Guido', 'Lopez', 25, 'Hombre'),
-(18, 'Maria', 'sda', 'Lopez', 25, 'Mujer'),
-(19, 'patitojuan', 'Guido', 'Lopez', 23, 'Hombre');
-
 -- --------------------------------------------------------
 
 --
@@ -93,15 +91,9 @@ CREATE TABLE `particulares` (
   `D_Pref` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `T_Hab` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `I_Mens` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
-  `V_año` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL
+  `V_año` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+  `Libros` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `particulares`
---
-
-INSERT INTO `particulares` (`id`, `I_pers`, `D_Pref`, `T_Hab`, `I_Mens`, `V_año`) VALUES
-(1, 'Musica', 'Playa', 'Departament', '5000-7000', '1 - 3');
 
 -- --------------------------------------------------------
 
@@ -110,7 +102,7 @@ INSERT INTO `particulares` (`id`, `I_pers`, `D_Pref`, `T_Hab`, `I_Mens`, `V_año
 --
 DROP TABLE IF EXISTS `all_data`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `all_data`  AS SELECT `g`.`id` AS `id`, `g`.`Nombre` AS `Nombre`, `g`.`Ap_Paterno` AS `Ap_Paterno`, `g`.`Ap_Materno` AS `Ap_Materno`, `g`.`Edad` AS `Edad`, `g`.`Sexo` AS `Sexo`, `d`.`Calle` AS `Calle`, `d`.`N_Int` AS `N_Int`, `d`.`N_Ext` AS `N_Ext`, `d`.`Colonia` AS `Colonia`, `d`.`Municipio` AS `Municipio`, `d`.`Estado` AS `Estado`, `p`.`I_pers` AS `I_pers`, `p`.`D_Pref` AS `D_Pref`, `p`.`T_Hab` AS `T_Hab`, `p`.`I_Mens` AS `I_Mens`, `p`.`V_año` AS `V_año` FROM ((`generales` `g` join `direccion` `d` on(`g`.`id` = `d`.`id`)) join `particulares` `p` on(`g`.`id` = `p`.`id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `all_data`  AS SELECT `g`.`id` AS `id`, `g`.`Nombre` AS `Nombre`, `g`.`Ap_Paterno` AS `Ap_Paterno`, `g`.`Ap_Materno` AS `Ap_Materno`, `g`.`Edad` AS `Edad`, `g`.`Sexo` AS `Sexo`, `d`.`Calle` AS `Calle`, `d`.`N_Int` AS `N_Int`, `d`.`N_Ext` AS `N_Ext`, `d`.`Colonia` AS `Colonia`, `d`.`Municipio` AS `Municipio`, `d`.`Estado` AS `Estado`, `p`.`I_pers` AS `I_pers`, `p`.`D_Pref` AS `D_Pref`, `p`.`T_Hab` AS `T_Hab`, `p`.`I_Mens` AS `I_Mens`, `p`.`V_año` AS `V_año`, `p`.`Libros` AS `Libros` FROM ((`generales` `g` join `direccions` `d` on(`g`.`id` = `d`.`id`)) join `particulares` `p` on(`g`.`id` = `p`.`id`)) ;
 
 --
 -- Índices para tablas volcadas
@@ -142,19 +134,19 @@ ALTER TABLE `particulares`
 -- AUTO_INCREMENT de la tabla `direccions`
 --
 ALTER TABLE `direccions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `generales`
 --
 ALTER TABLE `generales`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `particulares`
 --
 ALTER TABLE `particulares`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

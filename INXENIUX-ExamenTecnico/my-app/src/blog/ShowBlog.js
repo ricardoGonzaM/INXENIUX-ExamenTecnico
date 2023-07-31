@@ -6,8 +6,6 @@ import CompEditBlog from "./EditBlog.js";
 import swal from "sweetalert";
 import DataTable from "datatables.net-dt";
 
-import ModalTest from "./ModalTest.js";
-
 const URI = "http://localhost:8000/blogs/gene";
 
 const CompShowBlogs = () => {
