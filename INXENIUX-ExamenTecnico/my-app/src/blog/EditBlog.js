@@ -54,7 +54,7 @@ const CompEditBlog = ({id}) => {
 
   
   const handleCheckboxPref = (event) => {
-    /*
+    
     const { name, checked } = event.target;
     
     if (checked === false) {
@@ -70,7 +70,7 @@ const CompEditBlog = ({id}) => {
       prev += `${name}`;
       setD_Pref(prev);
     }
-    */
+    
   };
 
 
