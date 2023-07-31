@@ -1,3 +1,6 @@
+.modal-container {
+  color: black;
+}
 
 .buttons{
   margin-right: 15px;
@@ -43,7 +46,7 @@
 .radio-buttons-container {
   display: flex;
   place-items: center;
-  gap: 30px;
+  gap: 50px;
   
 }
 

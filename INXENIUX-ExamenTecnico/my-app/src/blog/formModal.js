@@ -1,11 +1,13 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./createBlog.css";
 
 const URI = "http://localhost:8000/blogs/gene";
 
-const FormModal = (edit, create) => {
-  const [formData, setFormData] = useState({
+const FormModal = () => {
+
+  // Banco de informacion
+  const [nuevoUsuario, setnuevoUsuario] = useState({
     Nombre: "",
     Ap_Paterno: "",
     Ap_Materno: "",
@@ -17,87 +19,120 @@ const FormModal = (edit, create) => {
     Colonia: "",
     Municipio: "",
     Estado: "",
+    T_Hab: "",
+    I_Mens: "",
+    V_año: "",
+    Libros: "",
+  });
+
+  // state de la info
+  const [checkboxInters_Per, setcheckboxInters_Per] = useState({
+    Musica: false,
+    Cine: false,
+    Modelado: false,
+    Compras: false,
+  });
+
+  const [checkboxDest, setCheckboxDest] = useState({
+    Desierto: false,
+    Playa: false,
+    Ciudad: false,
+    Montaña: false,
   });
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  // const history = useHistory();
+  
+  // Methods
+  const handleCheckboxInters_Pers = (event) => {
+    const { name, checked } = event.target;
+    setcheckboxInters_Per((prevValues) => ({
+      ...prevValues,
+      [name]: checked,
+    }));
+  };
 
+  const handleCheckboxDest = (event) => {
+    const { name, checked } = event.target;
+    setCheckboxDest((prevValues) => ({
+      ...prevValues,
+      [name]: checked,
+    }));
+  };
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
+    setnuevoUsuario({
+      ...nuevoUsuario,
       [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const selectedInters_Pers = Object.keys(checkboxInters_Per)
+      .filter((key) => checkboxInters_Per[key])
+      .join(",");
+
+    const selectedDest = Object.keys(checkboxDest)
+      .filter((key) => checkboxDest[key])
+      .join(",");
+
     try {
       setLoading(true);
       setError(null);
 
       const postGeneral = await axios.post(URI, {
-        Nombre: formData.Nombre,
-        Ap_Paterno: formData.Ap_Paterno,
-        Ap_Materno: formData.Ap_Materno,
-        Edad: formData.Edad,
-        Sexo: formData.Sexo,
+        Nombre: nuevoUsuario.Nombre,
+        Ap_Paterno: nuevoUsuario.Ap_Paterno,
+        Ap_Materno: nuevoUsuario.Ap_Materno,
+        Edad: nuevoUsuario.Edad,
+        Sexo: nuevoUsuario.Sexo,
       });
 
       const postDirec = await axios.post("http://localhost:8000/blogs/dire", {
-        Calle: formData.Calle,
-        N_Int: formData.N_Int,
-        N_Ext: formData.N_Ext,
-        Colonia: formData.Colonia,
-        Municipio: formData.Municipio,
-        Estado: formData.Estado,
+        Calle: nuevoUsuario.Calle,
+        N_Int: nuevoUsuario.N_Int,
+        N_Ext: nuevoUsuario.N_Ext,
+        Colonia: nuevoUsuario.Colonia,
+        Municipio: nuevoUsuario.Municipio,
+        Estado: nuevoUsuario.Estado,
       });
 
-      // Handle the response as needed
-      console.log("POST request successful:", formData);
-
+      const postParti = await axios.post("http://localhost:8000/blogs/part", {
+        I_pers: selectedInters_Pers,
+        D_Pref: selectedDest,
+        T_Hab: nuevoUsuario.T_Hab,
+        I_Mens: nuevoUsuario.I_Mens,
+        V_año: nuevoUsuario.V_año,
+        Libros: nuevoUsuario.Libros,
+      });
       setLoading(false);
       window.location.reload();
     } catch (err) {
       setLoading(false);
-      setError("An error occurred while making the request.");
+      setError("Un error ha ocurrido al crear nuevo usuario.");
       console.error(err);
     }
-  };
-
-  // Actualizar
-  /*
-  const update = async (e) => {
-    e.preventDefault()
-    await axios.put(URI+id, {title: title, content: content})
-    navigate('/')
-}
-*/
+  }; 
 
   return (
-    <div>
-      <button
-        type="button"
-        className="shadow__btn"
-        data-toggle="modal"
-        data-target="#exampleModal"
-      >
-        <i className="fa-solid fa-plus"> Nuevo Usuario</i>
-      </button>
+    <div className="modal-container">
+        <button
+          type="button"
+          className="shadow__btn"
+          data-toggle="modal"
+          data-target="#myModal"
+          ><i className="fa-solid fa-plus"> Nuevo usuario</i>
+        </button>
       <div
-        className="modal fade modal-lg"
-        id="exampleModal"
-        tabIndex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
+        className="modal fade modal-lg" id="myModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
       >
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title center" id="exampleModalLabel">
-                AGREGAR NUEVO USUARIO
+                Crear nuevo usuario
               </h5>
               <button
                 type="button"
@@ -124,7 +159,7 @@ const FormModal = (edit, create) => {
                       className="form-control"
                       type="text"
                       aria-describedby="basic-addon1"
-                      value={formData.Nombre}
+                      value={nuevoUsuario.Nombre}
                       name="Nombre"
                       onChange={handleChange}
                     />
@@ -140,7 +175,7 @@ const FormModal = (edit, create) => {
                       type="text"
                       aria-describedby="basic-addon1"
                       name="Ap_Paterno"
-                      value={formData.Ap_Paterno}
+                      value={nuevoUsuario.Ap_Paterno}
                       onChange={handleChange}
                       className="form-control"
                     />
@@ -157,7 +192,7 @@ const FormModal = (edit, create) => {
                       aria-describedby="basic-addon1"
                       className="form-control"
                       name="Ap_Materno"
-                      value={formData.Ap_Materno}
+                      value={nuevoUsuario.Ap_Materno}
                       onChange={handleChange}
                     />
                   </div>
@@ -174,7 +209,7 @@ const FormModal = (edit, create) => {
                         className="form-control"
                         aria-describedby="basic-addon1"
                         name="Edad"
-                        value={formData.Edad}
+                        value={nuevoUsuario.Edad}
                         onChange={handleChange}
                       />
                     </div>
@@ -189,7 +224,7 @@ const FormModal = (edit, create) => {
                         className="form-select"
                         id="sexo_id"
                         name="Sexo"
-                        value={formData.Sexo}
+                        value={nuevoUsuario.Sexo}
                         onChange={handleChange}
                       >
                         <option value="Seleccionar">Seleccionar el sexo</option>
@@ -197,7 +232,6 @@ const FormModal = (edit, create) => {
                         <option value="Mujer">Mujer</option>
                       </select>
                     </div>
-
                   </div>
                 </fieldset>
                 {/* Direccion */}
@@ -215,7 +249,7 @@ const FormModal = (edit, create) => {
                       aria-describedby="basic-addon1"
                       className="form-control"
                       name="Calle"
-                      value={formData.Calle}
+                      value={nuevoUsuario.Calle}
                       onChange={handleChange}
                     />
                   </div>
@@ -232,7 +266,7 @@ const FormModal = (edit, create) => {
                         className="form-control"
                         aria-describedby="basic-addon1"
                         name="N_Int"
-                        value={formData.N_Int}
+                        value={nuevoUsuario.N_Int}
                         onChange={handleChange}
                       />
                     </div>
@@ -248,7 +282,7 @@ const FormModal = (edit, create) => {
                         className="form-control"
                         aria-describedby="basic-addon1"
                         name="N_Ext"
-                        value={formData.N_Ext}
+                        value={nuevoUsuario.N_Ext}
                         onChange={handleChange}
                       />
                     </div>
@@ -265,7 +299,7 @@ const FormModal = (edit, create) => {
                       aria-describedby="basic-addon1"
                       className="form-control"
                       name="Colonia"
-                      value={formData.Colonia}
+                      value={nuevoUsuario.Colonia}
                       onChange={handleChange}
                     />
                   </div>
@@ -282,7 +316,7 @@ const FormModal = (edit, create) => {
                         className="form-control"
                         aria-describedby="basic-addon1"
                         name="Municipio"
-                        value={formData.Municipio}
+                        value={nuevoUsuario.Municipio}
                         onChange={handleChange}
                       />
                     </div>
@@ -298,7 +332,7 @@ const FormModal = (edit, create) => {
                         className="form-control"
                         aria-describedby="basic-addon1"
                         name="Estado"
-                        value={formData.Estado}
+                        value={nuevoUsuario.Estado}
                         onChange={handleChange}
                       />
                     </div>
@@ -308,64 +342,68 @@ const FormModal = (edit, create) => {
                 <fieldset className="field-container row form-group">
                   <legend>Particulares</legend>
                   {/* Inters pers */}
-                  <div className="input-group mb-1">
+                  <div className="input-group mb-3 alert">
                     <div className="input-group-prepend">
                       <span className="input-group-text" id="basic-addon1">
                         Inters pers.:
                       </span>
                     </div>
                     <br />
-                    <div className="radio-buttons-container m-lg-2">
+                    <div className="mt-1 center radio-buttons-container">
                       {/*Opciones de interes pers*/}
-                      <div className="form-check">
+                      <div className="form-check form-check-inline">
                         <input
-                          name="radio-group"
-                          id="radio2"
-                          className="radio-button__input"
-                          type="radio"
-                          value=""
+                          className="form-check-input"
+                          type="checkbox"
+                          value="Música"
+                          id="Música"
+                          name="Musica"
+                          checked={checkboxInters_Per.Musica}
+                          onChange={handleCheckboxInters_Pers}
                         />
-                        <label for="radio2" className="radio-button__label">
-                          <span className="radio-button__custom"></span>
-                          Musica
+                        <label className="form-check-label" htmlFor="Música">
+                          Música
                         </label>
                       </div>
-                      <div className="radio-button">
+                      <div className="form-check form-check-inline">
                         <input
-                          name="radio-group"
-                          id="radio1"
-                          className="radio-button__input"
-                          type="radio"
-                          value=""
+                          className="form-check-input"
+                          type="checkbox"
+                          value="Cine"
+                          id="Cine"
+                          name="Cine"
+                          checked={checkboxInters_Per.Cine}
+                          onChange={handleCheckboxInters_Pers}
                         />
-                        <label for="radio1" className="radio-button__label">
-                          <span className="radio-button__custom"></span>
+                        <label className="form-check-label" htmlFor="Cine">
                           Cine
                         </label>
                       </div>
-                      <div className="radio-button">
+                      <div className="form-check form-check-inline">
                         <input
-                          name="radio-group"
-                          id="radio3"
-                          className="radio-button__input"
-                          type="radio"
-                          value=""
+                          className="form-check-input"
+                          type="checkbox"
+                          value="Modelado"
+                          id="Modelado"
+                          name="Modelado"
+                          checked={checkboxInters_Per.Modelado}
+                          onChange={handleCheckboxInters_Pers}
                         />
-                        <label for="radio3" className="radio-button__label">
-                          <span className="radio-button__custom"></span>
+                        <label className="form-check-label" htmlFor="Modelado">
                           Modelado
                         </label>
                       </div>
-                      <div className="radio-button">
+                      <div className="form-check form-check-inline">
                         <input
-                          name="radio-group"
-                          id="radio4"
-                          className="radio-button__input"
-                          type="radio"
-                          value=""
+                          className="form-check-input"
+                          type="checkbox"
+                          value="Compras"
+                          id="Compras"
+                          name="Compras"
+                          checked={checkboxInters_Per.Compras}
+                          onChange={handleCheckboxInters_Pers}
                         />
-                        <label for="radio4" className="radio-button__label">
-                          <span className="radio-button__custom"></span>
+                        <label className="form-check-label" htmlFor="Compras">
                           Compras
                         </label>
                       </div>
@@ -373,63 +411,67 @@ const FormModal = (edit, create) => {
                     {/*Opciones de interes pers*/}
                   </div>
                   {/* Dest. Pref */}
-                  <div className="input-group mb-3">
+                  <div className="input-group mb-3 alert">
                     <div className="input-group-prepend">
                       <span className="input-group-text" id="basic-addon1">
                         Desti. Pref.:
                       </span>
                     </div>
-                    <div className="radio-buttons-container m-lg-2">
+                    <div className="mt-1 center radio-buttons-container">
                       {/*Opciones de Dest. Pref*/}
-                      <div className="radio-button">
+                      <div className="form-check form-check-inline">
                         <input
-                          name="radio-group"
-                          id="rad1"
-                          className="radio-button__input"
-                          type="radio"
-                          value=""
+                          className="form-check-input"
+                          type="checkbox"
+                          value="Desierto"
+                          id="Desierto"
+                          name="Desierto"
+                          checked={checkboxDest.Desierto}
+                          onChange={handleCheckboxDest}
                         />
-                        <label for="rad1" className="radio-button__label">
-                          <span className="radio-button__custom"></span>
+                        <label className="form-check-label" htmlFor="Desierto">
                           Desierto
                         </label>
                       </div>
-                      <div className="radio-button">
+                      <div className="form-check form-check-inline">
                         <input
-                          name="radio-group"
-                          id="rad2"
-                          className="radio-button__input"
-                          type="radio"
-                          value=""
+                          className="form-check-input"
+                          type="checkbox"
+                          value="Playa"
+                          id="Playa"
+                          name="Playa"
+                          checked={checkboxDest.Playa}
+                          onChange={handleCheckboxDest}
                         />
-                        <label for="rad2" className="radio-button__label">
-                          <span className="radio-button__custom"></span>
+                        <label className="form-check-label" htmlFor="Playa">
                           Playa
                         </label>
                       </div>
-                      <div className="radio-button">
+                      <div className="form-check form-check-inline">
                         <input
-                          name="radio-group"
-                          id="rad3"
-                          className="radio-button__input"
-                          type="radio"
-                          value=""
+                          className="form-check-input"
+                          type="checkbox"
+                          value="Ciudad"
+                          id="Ciudad"
+                          name="Ciudad"
+                          checked={checkboxDest.Ciudad}
+                          onChange={handleCheckboxDest}
                         />
-                        <label for="rad3" className="radio-button__label">
-                          <span className="radio-button__custom"></span>
+                        <label className="form-check-label" htmlFor="Ciudad">
                           Ciudad
                         </label>
                       </div>
-                      <div className="radio-button">
+                      <div className="form-check form-check-inline">
                         <input
-                          name="radio-group"
-                          id="rad4"
-                          className="radio-button__input"
-                          type="radio"
-                          value=""
+                          className="form-check-input"
+                          type="checkbox"
+                          value="Montaña"
+                          id="Montaña"
+                          name="Montaña"
+                          checked={checkboxDest.Montaña}
+                          onChange={handleCheckboxDest}
                         />
-                        <label for="rad4" className="radio-button__label">
-                          <span className="radio-button__custom"></span>
+                        <label className="form-check-label" htmlFor="Montaña">
                           Montaña
                         </label>
                       </div>
@@ -438,7 +480,7 @@ const FormModal = (edit, create) => {
                   </div>
                   {/* Tipo Hab & Ingrs. Mens */}
                   <div className="nested-field">
-                    <div className="input-group mb-3">
+                    <div className="input-group mb-3 alert ">
                       <div className="input-group-prepend">
                         <label
                           className="input-group-text"
@@ -448,17 +490,21 @@ const FormModal = (edit, create) => {
                         </label>
                       </div>
                       <select
-                        defaultValue="Seleccion..."
                         className="form-select"
                         id="inputGroupSelect01"
+                        name="T_Hab"
+                        value={nuevoUsuario.T_Hab}
+                        onChange={handleChange}
                       >
-                        <option value="Seleccionar">Seleccionar su habitacion</option>
+                        <option value="Seleccionar">
+                          Seleccionar su habitacion
+                        </option>
                         <option value="Casa propia">Casa propia</option>
                         <option value="Departamento">Departamento</option>
                         <option value="Hombre">Renta</option>
                       </select>
                     </div>
-                    <div className="input-group mb-3">
+                    <div className="input-group mb-3 alert ">
                       <div className="input-group-prepend">
                         <label
                           className="input-group-text"
@@ -468,11 +514,15 @@ const FormModal = (edit, create) => {
                         </label>
                       </div>
                       <select
-                        defaultValue="Seleccion..."
                         className="form-select"
                         id="inputGroupSelect01"
+                        name="I_Mens"
+                        value={nuevoUsuario.I_Mens}
+                        onChange={handleChange}
                       >
-                        <option value="Seleccionar">Seleccionar su ingr mensual</option>
+                        <option value="Seleccionar">
+                          Seleccionar su ingr mensual
+                        </option>
                         <option value="2,500 – 5,000">2,500 – 5,000</option>
                         <option value="5,001 – 7,000">5,001 – 7,000</option>
                         <option value="7,001 – 10,000">7,001 – 10,000</option>
@@ -481,7 +531,7 @@ const FormModal = (edit, create) => {
                   </div>
                   {/* Viajes al año & Libros */}
                   <div className="nested-field">
-                    <div className="input-group mb-3">
+                    <div className="input-group mb-3 alert">
                       <div className="input-group-prepend">
                         <label
                           className="input-group-text"
@@ -491,17 +541,21 @@ const FormModal = (edit, create) => {
                         </label>
                       </div>
                       <select
-                        defaultValue="Seleccion..."
                         className="form-select"
                         id="inputGroupSelect01"
+                        name="V_año"
+                        value={nuevoUsuario.V_año}
+                        onChange={handleChange}
                       >
-                        <option value="Seleccionar">Seleccionar sus V por año</option>
+                        <option value="Seleccionar">
+                          Seleccionar sus V por año
+                        </option>
                         <option value="1 – 3">1 – 3</option>
                         <option value="4 – 6">4 – 6</option>
                         <option value="7 – 10">7 – 10</option>
                       </select>
                     </div>
-                    <div className="input-group mb-3">
+                    <div className="input-group mb-3 alert">
                       <div className="input-group-prepend">
                         <label
                           className="input-group-text"
@@ -511,11 +565,15 @@ const FormModal = (edit, create) => {
                         </label>
                       </div>
                       <select
-                        defaultValue="Seleccion..."
                         className="form-select"
                         id="inputGroupSelect01"
+                        name="Libros"
+                        value={nuevoUsuario.Libros}
+                        onChange={handleChange}
                       >
-                        <option value="Seleccionar">Seleccionar su Libro</option>
+                        <option value="Seleccionar">
+                          Seleccionar su Libro
+                        </option>
                         <option value="Romance">Romance</option>
                         <option value="Novela">Novela</option>
                         <option value="Fantasía">Fantasía</option>

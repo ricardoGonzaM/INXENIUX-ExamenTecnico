@@ -1,15 +1,17 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import FormModal from "./formModal"
+import FormModal from "./formModal.js";
+import CompEditBlog from "./EditBlog.js";
 import swal from "sweetalert";
-import DataTable from 'datatables.net-dt';
+import DataTable from "datatables.net-dt";
+
+import ModalTest from "./ModalTest.js";
 
 const URI = "http://localhost:8000/blogs/gene";
 
 const CompShowBlogs = () => {
-
-  let table = new DataTable('#myTable');
+  let table = new DataTable("#myTable");
 
   const [blogs, setBlog] = useState([]);
   useEffect(() => {
@@ -31,7 +33,9 @@ const CompShowBlogs = () => {
     }).then((Respuesta) => {
       if (Respuesta) {
         (async () => {
-          await axios.delete(`${URI}${id}`);
+          await axios.delete(`http://localhost:8000/blogs/gene/${id}`);
+          await axios.delete(`http://localhost:8000/blogs/dire/${id}`);
+          await axios.delete(`http://localhost:8000/blogs/part/${id}`);
           getBlogs();
         })();
         swal({
@@ -47,7 +51,7 @@ const CompShowBlogs = () => {
     <div className="container">
       <div className="row">
         <div className="col">
-        {/*tabla de vizualizacion*/}
+          {/*tabla de vizualizacion*/}
           <table className="table table-dark mt-4 mb-4">
             <thead className="table-primary">
               <tr>
@@ -68,12 +72,10 @@ const CompShowBlogs = () => {
                   <td>{blog.Edad}</td>
                   <td>{blog.Sexo}</td>
                   <td>
-                    <Link
-                      to={`/edit/${blog.id}`}
-                      className="btn btn-info buttons"
-                    >
-                      <i className="fa-solid fa-pen"></i>
-                    </Link>
+                      
+                      <CompEditBlog id={`#id${blog.id}`}/>
+                      
+                      <p>{blog.id}</p>
                     <button
                       onClick={() => deleteBlog(blog.id)}
                       className="btn btn-danger buttons"
@@ -85,7 +87,7 @@ const CompShowBlogs = () => {
               ))}
             </tbody>
           </table>
-          <FormModal/>
+          <FormModal />
         </div>
       </div>
     </div>
