@@ -3,9 +3,15 @@
 }
 
 .buttons{
-  margin-right: 15px;
-    height: auto;
-    display: inline-block;
+    margin-right: 8px;
+    display: flex;
+}
+
+.contenedor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 8vh;
 }
 
 .field-container {

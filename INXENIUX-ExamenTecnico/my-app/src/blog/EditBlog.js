@@ -30,26 +30,55 @@ const CompEditBlog = ({id}) => {
   const [Libros, setLibros] = useState("");
   /*Fin de Particulares*/
 
+  const handleCheckboxInters_Pers = (event) => {
+    const { name, checked } = event.target;
+    
+    if (checked === false) {
+      console.log("no-check")
+      console.log("Antes: " + I_pers);
+      let prev = I_pers;
+      prev = prev.replace(`${name}`, "");
+      setI_pers(prev);
+      console.log("Despues: " + I_pers);
+    }
+
+    else {
+      console.log("check")
+      console.log("Antes: " + I_pers);
+      let prev = I_pers;
+      prev += `${name}`;
+      setI_pers(prev);
+      console.log("Despues: " + I_pers);
+    }
+  };
+
+  
+  const handleCheckboxPref = (event) => {
+    /*
+    const { name, checked } = event.target;
+    
+    if (checked === false) {
+      console.log("no-check")
+      let prev = D_Pref;
+      prev = prev.replace(`${name}`, "");
+      setD_Pref(prev)
+    }
+
+    else {
+      console.log("check")
+      let prev = D_Pref;
+      prev += `${name}`;
+      setD_Pref(prev);
+    }
+    */
+  };
+
+
   const navigate = useNavigate();
   
   let newId = id.replace("#id", "");
-
   //procedimiento para actualizar
-  /*
-  const update1 = async (e) => {
-    e.preventDefault();
-    await axios.put("http://localhost:8000/blogs/dire/" + newId, {
-      Calle: Calle,
-      N_Int: N_Int,
-      N_Ext: N_Ext,
-      Colonia: Colonia,
-      Municipio: Municipio,
-      Estado: Estado,
-    });
-  };
-  */
-
-  const updateForm1 = async (e) => {
+  const updateForm = async (e) => {
     const update1 = await axios.put("http://localhost:8000/blogs/dire/" + newId, {
         Calle: Calle,
         N_Int: N_Int,
@@ -58,31 +87,27 @@ const CompEditBlog = ({id}) => {
         Municipio: Municipio,
         Estado: Estado,
       });
+
+      
+      const update2 = await axios.put("http://localhost:8000/blogs/part/" + newId, {
+          I_pers: I_pers,
+          D_Pref: D_Pref,
+          T_Hab: T_Hab,
+          I_Mens: I_Mens,
+          V_año: V_año,
+          Libros: Libros,
+        });
+
+        const update3 = await axios.put(URI + newId, {
+            Nombre: Nombre,
+            Ap_Paterno: Ap_Paterno,
+            Ap_Materno: Ap_Materno,
+            Edad: Edad,
+            Sexo: Sexo,
+          });
+
+        window.location.reload();
   }
-
-  const update2 = async (e) => {
-    e.preventDefault();
-    await axios.put("http://localhost:8000/blogs/part/" + newId, {
-      I_pers: I_pers,
-      D_Pref: D_Pref,
-      T_Hab: T_Hab,
-      I_Mens: I_Mens,
-      V_año: V_año,
-      Libros: Libros,
-    });
-  };
-
-  const update3 = async (e) => {
-    e.preventDefault();
-    await axios.put(URI + newId, {
-      Nombre: Nombre,
-      Ap_Paterno: Ap_Paterno,
-      Ap_Materno: Ap_Materno,
-      Edad: Edad,
-      Sexo: Sexo,
-    });
-    window.location.reload();
-  };
 
   useEffect(() => {
     getBlogById();
@@ -118,8 +143,6 @@ const CompEditBlog = ({id}) => {
     setV_año(res.data.V_año);
     setLibros(res.data.Libros);
   };
-
-  console.log(Nombre)
 
   const myStyle = {
     color: 'black'
@@ -160,7 +183,7 @@ const CompEditBlog = ({id}) => {
               </button>
             </div>
             <div className="modal-body">
-              <form onSubmit={update3}>
+              <form onSubmit={updateForm}>
                 {/* Generales */}
                 <fieldset className="field-container row form-group">
                   <legend>Generales</legend>
@@ -249,9 +272,8 @@ const CompEditBlog = ({id}) => {
                     </div>
                   </div>
                 </fieldset>
-              </form>
               {/* Direccion */}
-              <form onSubmit={updateForm1}>
+              
                 <fieldset className="field-container row form-group">
                   <legend>Direccion</legend>
                   {/* Calle */}
@@ -355,9 +377,8 @@ const CompEditBlog = ({id}) => {
                     </div>
                   </div>
                 </fieldset>
-              </form>
+              
               {/* Particulares */}
-              <form onSubmit={update2}>
               <fieldset className="field-container row form-group">
                   <legend>Particulares</legend>
                   {/* Inters pers */}
@@ -377,8 +398,8 @@ const CompEditBlog = ({id}) => {
                           value="Música"
                           id="Música"
                           name="Musica"
-                          checked=""
-                          onChange={(e) => I_pers(e.target.value)}
+                          checked={I_pers.includes("Musica")}
+                          onChange={handleCheckboxInters_Pers}
                         />
                         <label className="form-check-label" htmlFor="Música">
                           Música
@@ -391,8 +412,8 @@ const CompEditBlog = ({id}) => {
                           value="Cine"
                           id="Cine"
                           name="Cine"
-                          checked=""
-                          onChange={(e) => I_pers(e.target.value)}
+                          checked={I_pers.includes("Cine")}
+                          onChange={handleCheckboxInters_Pers}
                         />
                         <label className="form-check-label" htmlFor="Cine">
                           Cine
@@ -405,8 +426,8 @@ const CompEditBlog = ({id}) => {
                           value="Modelado"
                           id="Modelado"
                           name="Modelado"
-                          checked=""
-                          onChange={(e) => I_pers(e.target.value)}
+                          checked={I_pers.includes("Modelado")}
+                          onChange={handleCheckboxInters_Pers}
                         />
                         <label className="form-check-label" htmlFor="Modelado">
                           Modelado
@@ -419,8 +440,8 @@ const CompEditBlog = ({id}) => {
                           value="Compras"
                           id="Compras"
                           name="Compras"
-                          checked=""
-                          onChange={(e) => I_pers(e.target.value)}
+                          checked={I_pers.includes("Compras")}
+                          onChange={handleCheckboxInters_Pers}
                         />
                         <label className="form-check-label" htmlFor="Compras">
                           Compras
@@ -445,8 +466,8 @@ const CompEditBlog = ({id}) => {
                           value="Desierto"
                           id="Desierto"
                           name="Desierto"
-                          checked=""
-                          onChange={(e) => D_Pref(e.target.value)}
+                          checked={D_Pref.includes("Desierto")}
+                          onChange={handleCheckboxPref}
                         />
                         <label className="form-check-label" htmlFor="Desierto">
                           Desierto
@@ -459,8 +480,8 @@ const CompEditBlog = ({id}) => {
                           value="Playa"
                           id="Playa"
                           name="Playa"
-                          checked=""
-                          onChange={(e) => D_Pref(e.target.value)}
+                          checked={D_Pref.includes("Playa")}
+                          onChange={handleCheckboxPref}
                         />
                         <label className="form-check-label" htmlFor="Playa">
                           Playa
@@ -473,8 +494,8 @@ const CompEditBlog = ({id}) => {
                           value="Ciudad"
                           id="Ciudad"
                           name="Ciudad"
-                          checked=""
-                          onChange={(e) => D_Pref(e.target.value)}
+                          checked={D_Pref.includes("Ciudad")}
+                          onChange={handleCheckboxPref}
                         />
                         <label className="form-check-label" htmlFor="Ciudad">
                           Ciudad
@@ -487,8 +508,8 @@ const CompEditBlog = ({id}) => {
                           value="Montaña"
                           id="Montaña"
                           name="Montaña"
-                          checked=""
-                          onChange={(e) => D_Pref(e.target.value)}
+                          checked={D_Pref.includes("Montaña")}
+                          onChange={handleCheckboxPref}
                         />
                         <label className="form-check-label" htmlFor="Montaña">
                           Montaña
@@ -601,7 +622,6 @@ const CompEditBlog = ({id}) => {
                     </div>
                   </div>
                 </fieldset>
-                </form>
               <button type="submit" className="btn btn-primary buttons ">
                 <strong>Guardar</strong>
               </button>
@@ -612,6 +632,7 @@ const CompEditBlog = ({id}) => {
               >
                 Cerrar
               </button>
+              </form>
             </div>
           </div>
         </div>

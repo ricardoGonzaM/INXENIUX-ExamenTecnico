@@ -71,11 +71,9 @@ const CompShowBlogs = () => {
                   <td>{blog.Ap_Materno}</td>
                   <td>{blog.Edad}</td>
                   <td>{blog.Sexo}</td>
-                  <td>
+                  <td className="contenedor col-sm-12 col-xs-12 center">
                       
                       <CompEditBlog id={`#id${blog.id}`}/>
-                      
-                      <p>{blog.id}</p>
                     <button
                       onClick={() => deleteBlog(blog.id)}
                       className="btn btn-danger buttons"
