@@ -1,5 +1,5 @@
 //Importacion de la base de datos de datos de Destinos
-import db from "../database/db.js";
+const db = require("../database/db.js")
 
 import { DataTypes } from "sequelize";
 
