@@ -19,7 +19,7 @@ app.get("/", (req, res)=>{
 });
 
 try {
-  await dba.authenticate();
+   dba.authenticate();
   console.log("Conexión exitosa a la DB");
 } catch (error) {
   console.error("El error de la conexión es:", error);
