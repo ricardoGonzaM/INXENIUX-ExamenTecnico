@@ -8,15 +8,18 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 app.use(cors());
-app.use(dba);
 app.use(express.json());
 app.use(express.urlencoded({extended: false}))
 app.listen(port);
-app.use("/blogs", blogRoutes);
+//app.use("/blogs", blogRoutes);
 
 app.get("/", (req, res)=>{
   res.send("La pagina de inicio");
 });
 
+dba.getConnection((err, conn) => {
+  if(err) console.log(err)
+  console.log("Connected successfully")
+})
 
 console.log(`Listen on Port ${port}`);

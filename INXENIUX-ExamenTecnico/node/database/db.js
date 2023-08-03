@@ -11,9 +11,6 @@ const  dba = new mysql.createPool({
         queueLimit: 0
 })
 
-dba.getConnection((err, conn) => {
-        if(err) console.log(err)
-        console.log("Connected successfully")
-    })
+
 
 export default dba 
