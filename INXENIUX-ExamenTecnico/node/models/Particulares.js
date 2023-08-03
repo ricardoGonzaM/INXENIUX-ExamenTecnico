@@ -1,5 +1,5 @@
 //Importacion de la base de datos de datos de Particulares
-import db from "../database/db.js";
+import db from "../database/db.cjs";
 import { DataTypes } from "sequelize";
 
 const Particulares = db.define('particulares', {
