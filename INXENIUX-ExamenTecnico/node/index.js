@@ -1,6 +1,6 @@
 //import blogRoutes from "./routes/routes.js";
 import cors from "cors";
-import dba from "../database/db.js";
+import dba from "./database/db.js";
 
 
 const express = require("express");
