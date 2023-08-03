@@ -1,7 +1,7 @@
 //importamos el modelo que se hizo
-import General from "../models/BlogModel.js";
-import Direccion from "../models/Direccion.js";
-import Particulares from "../models/Particulares.js";
+import General from "../models/BlogModel.cjs";
+import Direccion from "../models/Direccion.cjs";
+import Particulares from "../models/Particulares.cjs";
 
 //General
 /**
