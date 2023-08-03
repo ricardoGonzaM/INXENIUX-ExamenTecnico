@@ -3,7 +3,7 @@ import db from "../database/db.cjs";
 
 import { DataTypes } from "sequelize";
 
-const Direccion = db.define('direccions', {
+const Direccion = db.sequelize.define('direccions', {
     
     Calle:{type: DataTypes.STRING},
     N_Int:{type: DataTypes.NUMBER},

@@ -3,7 +3,7 @@ import db from "../database/db.cjs";
 
 import { DataTypes } from "sequelize";
 
-const General = db.define('generales', {
+const General = db.sequelize.define('generales', {
     
     Nombre:{ type: DataTypes.STRING},
     Ap_Paterno:{type: DataTypes.STRING},

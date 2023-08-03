@@ -2,7 +2,7 @@
 import db from "../database/db.cjs";
 import { DataTypes } from "sequelize";
 
-const Particulares = db.define('particulares', {
+const Particulares = db.sequelize.define('particulares', {
     
     I_pers:{ type: DataTypes.STRING},
     D_Pref:{type: DataTypes.STRING},
