@@ -1,5 +1,6 @@
 //import blogRoutes from "./routes/routes.js";
 import cors from "cors";
+import dba from "../database/db.js";
 
 
 const express = require("express");
@@ -15,5 +16,10 @@ app.listen(port);
 app.get("/", (req, res)=>{
   res.send("La pagina de inicio");
 });
+
+dba.getConnection((err, conn) => {
+  if(err) console.log(err)
+  console.log("conexion exitosa")
+})
 
 console.log(`Listen on Port ${port}`);
