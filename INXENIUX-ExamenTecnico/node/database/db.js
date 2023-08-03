@@ -1,7 +1,7 @@
 //Conexion de la base de datos
 const mysql = require('mysql2');
 
-const  db = new mysql.createPool({
+const  dba = new mysql.createPool({
         host: process.env.DB_HOST, 
         user: process.env.DB_USERNAME, 
         password: process.env.DB_PASSWORD,
@@ -11,9 +11,6 @@ const  db = new mysql.createPool({
         queueLimit: 0
 })
 
-dba.getConnection((err, conn) => {
-        if(err) console.log(err)
-        console.log("conexion exitosa")
-})
+
 
 export default dba 

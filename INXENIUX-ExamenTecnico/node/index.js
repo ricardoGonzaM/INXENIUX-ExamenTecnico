@@ -18,6 +18,12 @@ app.get("/", (req, res)=>{
   res.send("La pagina de inicio");
 });
 
+try {
+  await dba.authenticate();
+  console.log("Conexión exitosa a la DB");
+} catch (error) {
+  console.error("El error de la conexión es:", error);
+}
 
 
 console.log(`Listen on Port ${port}`);
