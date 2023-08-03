@@ -1,7 +1,7 @@
 //Conexion de la base de datos
-const mysql = require('mysql2');
+import { Sequelize } from "sequelize";
 
-const  db = new mysql.createPool({
+const  db = new Sequelize({
         host: process.env.DB_HOST, 
         user: process.env.DB_USERNAME, 
         password: process.env.DB_PASSWORD,
@@ -16,4 +16,4 @@ db.getConnection((err, conn) => {
         console.log("conexion exitosa")
 })
 
-module.exports = db.promise()
+export default db

@@ -1,5 +1,5 @@
 //Importacion de la base de datos de datos de generales
-const db = require("../database/db.js")
+import db from "../database/db.js";
 
 import { DataTypes } from "sequelize";
 
