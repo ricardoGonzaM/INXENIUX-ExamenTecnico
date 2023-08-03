@@ -13,4 +13,4 @@ const  db = new mysql.createPool({
 
 
 
-export default db 
+module.exports = db.promise()

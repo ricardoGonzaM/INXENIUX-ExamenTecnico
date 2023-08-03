@@ -1,9 +1,9 @@
 //Importacion de la base de datos de datos de Destinos
-import db from "../database/db.cjs";
+const db = require("../database/db.cjs")
 
 import { DataTypes } from "sequelize";
 
-const Direccion = db.sequelize.define('direccions', {
+const Direccion = db.define('direccions', {
     
     Calle:{type: DataTypes.STRING},
     N_Int:{type: DataTypes.NUMBER},
@@ -12,5 +12,6 @@ const Direccion = db.sequelize.define('direccions', {
     Municipio:{type: DataTypes.STRING},
     Estado:{type: DataTypes.STRING},
 })
+
 
 export default Direccion 
