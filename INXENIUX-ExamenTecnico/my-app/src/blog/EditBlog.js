@@ -67,7 +67,7 @@ const CompEditBlog = ({ id }) => {
   const navigate = useNavigate();
 
   let newId = id.replace("#id", "");
-  
+
   //procedimiento para actualizar
   const updateForm = async (e) => {
     event.preventDefault();
@@ -115,7 +115,7 @@ const CompEditBlog = ({ id }) => {
     }).catch(error => {
       console.log(error);
     });
-  };
+  }
 
   useEffect(() => {
     getBlogById();
