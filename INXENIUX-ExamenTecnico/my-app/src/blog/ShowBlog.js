@@ -62,25 +62,7 @@ const CompShowBlogs = () => {
               </tr>
             </thead>
             <tbody>
-              {blogs.map((blog) => (
-                <tr key={blog.id}>
-                  <td>{blog.Nombre}</td>
-                  <td>{blog.Ap_Paterno}</td>
-                  <td>{blog.Ap_Materno}</td>
-                  <td>{blog.Edad}</td>
-                  <td>{blog.Sexo}</td>
-                  <td className="contenedor col-sm-12 col-xs-12 center">
-                      
-                      <CompEditBlog id={`#id${blog.id}`}/>
-                    <button
-                      onClick={() => deleteBlog(blog.id)}
-                      className="btn btn-danger buttons"
-                    >
-                      <i className="fa-solid fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-              ))}
+              
             </tbody>
           </table>
           <FormModal />
