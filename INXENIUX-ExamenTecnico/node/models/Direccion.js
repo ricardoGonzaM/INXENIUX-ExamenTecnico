@@ -1,5 +1,5 @@
 //Importacion de la base de datos de datos de Destinos
-const db = require("../database/db.cjs")
+/*const db = require("../database/db.js")
 
 import { DataTypes } from "sequelize";
 
@@ -15,3 +15,4 @@ const Direccion = db.define('direccions', {
 
 
 export default Direccion 
+*/

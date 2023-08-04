@@ -1,7 +1,5 @@
 //importamos el modelo que se hizo
-import General from "../models/BlogModel.cjs";
-import Direccion from "../models/Direccion.cjs";
-import Particulares from "../models/Particulares.cjs";
+const db = require("../database/db.js")
 
 //General
 /**
@@ -9,159 +7,243 @@ import Particulares from "../models/Particulares.cjs";
  * @param req es un objeto que contiene información sobre la petición HTTP que ha provocado el evento.
  * @param res para devolver la respuesta HTTP deseada.
  */
-export const  getAllBlogs = async (req, res)=> {
-    try {
-           const blogs = await General.findAll()
-           res.json(blogs)
-    } catch (error) {
-        res.json({ error: error.message })
-    }
-}
-//Vizualizar un registro
-export const getBlog = async (req, res)=> {
+const BlogController = {
+//Vizualizar los datos de la base de datos
+    getAll: async (req, res) => {
         try {
-           const  blog = await General.findAll({
-                where: { id: req.params.id}
+            const [rows, fields] = await db.query("select * from generales")
+            res.json({
+                data: rows
             })
-            res.json(blog[0])
         } catch (error) {
-            res.json({ error: error.message })
+            console.log(error)
+            res.json({
+                status: "error"
+            })
         }
-}
+    },
+//Vizualizar un registro
+    getById: async (req, res) => {
+    try {
+        const { id } = req.params
+        const [rows, fields] = await db.query("select * from general where id = ?", [id])
+        res.json({
+            data: rows
+        })
+    } catch (error) {
+        console.log(error)
+        res.json({
+            status: "error"
+        })
+    }
+    },
 //Crear un registro
-export const createBlog = async (req, res)=> {
+    create: async (req, res) => {
     try {
-        await General.create( req.body )
-        res.json({"message": "!!Los datos han sido guardados!!"})
+        const { Nombre, Ap_Paterno, Ap_Materno, Edad, Sexo} = req.body
+        const sql = "insert into general (Nombre, Ap_Paterno, Ap_Materno, Edad, Sexo) values (?, ?, ?, ?, ?)"
+        const [rows, fields] = await db.query(sql, [Nombre, Ap_Paterno, Ap_Materno, Edad, Sexo])
+        res.json({
+            data: rows
+        })
     } catch (error) {
-        res.json({ error: error.message })
+        console.log(error)
+        res.json({
+            status: "error"
+        })
     }
-}
+    },
 //Borrar algun dato de la base de datos
-export const deleteBlog = async (req,res)=> {
-    try {
-       await General.destroy({
-            where: { id: req.params.id}
-        })
-        res.json({"message": "!!Los datos han sido Eliminados!!"})
-    } catch (error) {
-        res.json({ error: error.message })
-    }
-}
+    delete: async (req, res) => {
+        try {
+            const { id } = req.params
+            const [rows, fields] = await db.query("delete from general where id = ?", [id])
+            res.json({
+                data: rows
+            })
+        } catch (error) {
+            console.log(error)
+            res.json({
+                status: "error"
+            })
+        }
+    },
 //Editar algun dato en la base de datos
-export const updateBlog = async (req, res)=> {
-    try {
-        await General.update( req.body, {
-            where: { id: req.params.id}
-        })
-        res.json({"message": "!!Los datos han sido Actualizados!!"})
-    } catch (error) {
-        res.json({ error: error.message })
-    }
-}
+    update: async (req, res) => {
+        try {
+            const { Nombre, Ap_Paterno, Ap_Materno, Edad, Sexo } = req.body
+            const { id } = req.params
+            const sql = "update general set Nombre = ?, Ap_Paterno = ?, Ap_Materno = ?, Edad = ?, Sexo = ? where id = ?"
+            const [rows, fields] = await db.query(sql, [Nombre, Ap_Paterno, Ap_Materno, Edad, Sexo, id])
+            res.json({
+                data: rows
+            })
+        } catch (error) {
+            console.log(error)
+            res.json({
+                status: "error"
+            })
+        }
+    },
 
 //Direccion
 //Vizualizar los datos de la base de datos
-export const  getAllDire = async (req, res)=> {
-    try {
-           const direccion = await Direccion.findAll()
-           res.json(direccion)
-    } catch (error) {
-        res.json({ error: error.message })
-    }
-}
-//Vizualizar un registro
-export const getDire = async (req, res)=> {
+    getAllDireccions: async (req, res) => {
         try {
-           const  direccion = await Direccion.findAll({
-                where: { id: req.params.id}
+            const [rows, fields] = await db.query("select * from direccions")
+            res.json({
+                data: rows
             })
-            res.json(direccion[0])
         } catch (error) {
-            res.json({ error: error.message })
+            console.log(error)
+            res.json({
+                status: "error"
+            })
         }
-}
+    },
+//Vizualizar un registro
+    getByIdDireccions: async (req, res) => {
+    try {
+        const { id } = req.params
+        const [rows, fields] = await db.query("select * from direccions where id = ?", [id])
+        res.json({
+            data: rows
+        })
+    } catch (error) {
+        console.log(error)
+        res.json({
+            status: "error"
+        })
+    }
+    },
 //Crear un registro
-export const createDire = async (req, res)=> {
+    createDireccions: async (req, res) => {
     try {
-        await Direccion.create( req.body )
-        res.json({"message": "!!Los datos han sido guardados!!"})
+        const { Calle, N_Int, N_Ext, Colonia, Municipio, Estado} = req.body
+        const sql = "insert into direccions (Calle, N_Int, N_Ext, Colonia, Municipio, Estado) values (?, ?, ?, ?, ?, ?)"
+        const [rows, fields] = await db.query(sql, [Calle, N_Int, N_Ext, Colonia, Municipio, Estado])
+        res.json({
+            data: rows
+        })
     } catch (error) {
-        res.json({ error: error.message })
+        console.log(error)
+        res.json({
+            status: "error"
+        })
     }
-}
+    },
 //Borrar algun dato de la base de datos
-export const deleteDire = async (req,res)=> {
-    try {
-       await Direccion.destroy({
-            where: { id: req.params.id}
-        })
-        res.json({"message": "!!Los datos han sido Eliminados!!"})
-    } catch (error) {
-        res.json({ error: error.message })
-    }
-}
+    deleteDireccions: async (req, res) => {
+        try {
+            const { id } = req.params
+            const [rows, fields] = await db.query("delete from direccions where id = ?", [id])
+            res.json({
+                data: rows
+            })
+        } catch (error) {
+            console.log(error)
+            res.json({
+                status: "error"
+            })
+        }
+    },
 //Editar algun dato en la base de datos
-export const updateDire = async (req, res)=> {
-    try {
-        await Direccion.update( req.body, {
-            where: { id: req.params.id}
-        })
-        res.json({"message": "!!Los datos han sido Actualizados!!"})
-    } catch (error) {
-        res.json({ error: error.message })
-    }
-}
+    updateDireccions: async (req, res) => {
+        try {
+            const { Calle, N_Int, N_Ext, Colonia, Municipio, Estado } = req.body
+            const { id } = req.params
+            const sql = "update direccions set Calle = ?, N_Int = ?, N_Ext = ?, Colonia = ?, Municipio = ?, Estado = ? where id = ?"
+            const [rows, fields] = await db.query(sql, [Calle, N_Int, N_Ext, Colonia, Municipio, Estado, id])
+            res.json({
+                data: rows
+            })
+        } catch (error) {
+            console.log(error)
+            res.json({
+                status: "error"
+            })
+        }
+    },
 
 //Particulares
 //Vizualizar los datos de la base de datos
-export const  getAllPart = async (req, res)=> {
-    try {
-           const blogs = await Particulares.findAll()
-           res.json(blogs)
-    } catch (error) {
-        res.json({ error: error.message })
-    }
-}
-//Vizualizar un registro
-export const getPart = async (req, res)=> {
+    getAllParticulares: async (req, res) => {
         try {
-           const  blog = await Particulares.findAll({
-                where: { id: req.params.id}
+            const [rows, fields] = await db.query("select * from particulares")
+            res.json({
+                data: rows
             })
-            res.json(blog[0])
         } catch (error) {
-            res.json({ error: error.message })
+            console.log(error)
+            res.json({
+                status: "error"
+            })
         }
-}
+    },
+//Vizualizar un registro
+    getByIdParticulares: async (req, res) => {
+        try {
+            const { id } = req.params
+            const [rows, fields] = await db.query("select * from particulares where id = ?", [id])
+            res.json({
+                data: rows
+            })
+        } catch (error) {
+            console.log(error)
+            res.json({
+                status: "error"
+            })
+        }
+    },
 //Crear un registro
-export const createPart = async (req, res)=> {
-    try {
-        await Particulares.create( req.body )
-        res.json({"message": "!!Los datos han sido guardados!!"})
-    } catch (error) {
-        res.json({ error: error.message })
-    }
-}
+    createParticulares: async (req, res) => {
+        try {
+            const { I_pers, D_Pref, T_Hab, I_Mens, V_año, Libros} = req.body
+            const sql = "insert into particulares (I_pers, D_Pref, T_Hab, I_Mens, V_año, Libros) values (?, ?, ?, ?, ?, ?)"
+            const [rows, fields] = await db.query(sql, [I_pers, D_Pref, T_Hab, I_Mens, V_año, Libros])
+            res.json({
+                data: rows
+            })
+        } catch (error) {
+            console.log(error)
+            res.json({
+                status: "error"
+            })
+        }
+    },
 //Borrar algun dato de la base de datos
-export const deletePart = async (req,res)=> {
-    try {
-       await Particulares.destroy({
-            where: { id: req.params.id}
-        })
-        res.json({"message": "!!Los datos han sido Eliminados!!"})
-    } catch (error) {
-        res.json({ error: error.message })
-    }
-}
+    deleteParticulares: async (req, res) => {
+        try {
+            const { id } = req.params
+            const [rows, fields] = await db.query("delete from particulares where id = ?", [id])
+            res.json({
+                data: rows
+            })
+        } catch (error) {
+            console.log(error)
+            res.json({
+                status: "error"
+            })
+        }
+    },
 //Editar algun dato en la base de datos
-export const updatePart = async (req, res)=> {
-    try {
-        await Particulares.update( req.body, {
-            where: { id: req.params.id}
-        })
-        res.json({"message": "!!Los datos han sido Actualizados!!"})
-    } catch (error) {
-        res.json({ error: error.message })
-    }
+    updateParticulares: async (req, res) => {
+        try {
+            const { I_pers, D_Pref, T_Hab, I_Mens, V_año, Libros } = req.body
+            const { id } = req.params
+            const sql = "update particulares set I_pers = ?, D_Pref = ?, T_Hab = ?, I_Mens = ?, V_año = ?, Libros = ? where id = ?"
+            const [rows, fields] = await db.query(sql, [I_pers, D_Pref, T_Hab, I_Mens, V_año, Libros, id])
+            res.json({
+                data: rows
+            })
+        } catch (error) {
+            console.log(error)
+            res.json({
+                status: "error"
+            })
+        }
+    },
+
 }
+
+module.exports = BlogController

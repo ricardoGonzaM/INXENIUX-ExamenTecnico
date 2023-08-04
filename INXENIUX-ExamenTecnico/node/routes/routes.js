@@ -1,44 +1,29 @@
 //rutas del sistema
-import express from "express";
-import {
-  createBlog,
-  deleteBlog,
-  getAllBlogs,
-  getBlog,
-  updateBlog,
-  getAllDire,
-  getDire,
-  createDire,
-  deleteDire,
-  updateDire,
-  getAllPart,
-  getPart,
-  createPart,
-  deletePart,
-  updatePart,
-} from "../controllers/BlogController.js";
-
+const express = require("express")
 const router = express.Router();
+const BlogController = require ("../controllers/BlogController.js");
 
 //Rutas de General
-router.get("/gene", getAllBlogs);
-router.get("/gene/:id", getBlog);
-router.post("/gene", createBlog);
-router.put("/gene/:id", updateBlog);
-router.delete("/gene/:id", deleteBlog);
+router.get("/gene", BlogController.getAll);
+router.get("/gene/:id", BlogController.getById);
+router.post("/gene", BlogController.create);
+router.delete("/gene/:id", BlogController.delete);
+router.put("/gene/:id", BlogController.update);
 
 //Rutas de Direccion
-router.get("/dire", getAllDire);
-router.get("/dire/:id", getDire);
-router.post("/dire", createDire);
-router.put("/dire/:id", updateDire);
-router.delete("/dire/:id", deleteDire);
+router.get("/dire", BlogController.getAllDireccions);
+router.get("/dire/:id", BlogController.getByIdDireccions);
+router.post("/dire", BlogController.createDireccions);
+router.delete("/dire/:id", BlogController.deleteDireccions);
+router.put("/dire/:id", BlogController.updateDireccions);
 
 //Rutas de Particulares
-router.get("/part", getAllPart);
-router.get("/part/:id", getPart);
-router.post("/part", createPart);
-router.put("/part/:id", updatePart);
-router.delete("/part/:id", deletePart);
+router.get("/part", BlogController.getAllParticulares);
+router.get("/part/:id", BlogController.getByIdParticulares);
+router.post("/part", BlogController.createParticulares);
+router.delete("/part/:id", BlogController.deleteParticulares);
+router.put("/part/:id", BlogController.updateParticulares);
 
-export default router;
+
+
+module.exports = router

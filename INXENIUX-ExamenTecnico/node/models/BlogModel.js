@@ -1,7 +1,6 @@
 //Importacion de la base de datos de datos de generales
-const db = require("../database/db.cjs")
-
-import { DataTypes } from "sequelize";
+/*const db = require("../database/db.js")
+const { DataTypes } = require("sequelize");
 
 const General = db.define('generales', {
     
@@ -12,5 +11,5 @@ const General = db.define('generales', {
     Sexo:{type: DataTypes.STRING},
 })
 
-
-export default General 
+module.exports = General.promise()
+*/

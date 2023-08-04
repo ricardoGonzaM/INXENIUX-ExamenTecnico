@@ -1,7 +1,5 @@
-import blogRoutes from "./routes/routes.js";
-import cors from "cors";
-
-
+const cors = require("cors");
+const blogRoutes = require("./routes/routes.js")
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 4000;
