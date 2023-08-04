@@ -397,7 +397,7 @@ const CompEditBlog = ({ id }) => {
                           value="Música"
                           id="Música"
                           name="Musica"
-                          checked={I_pers.includes("Musica")}
+                          checked={I_pers !== undefined && I_pers.includes("Musica")}
                           onChange={Check_Pers}
                         />
                         <label className="form-check-label" htmlFor="Música">
@@ -411,7 +411,7 @@ const CompEditBlog = ({ id }) => {
                           value="Cine"
                           id="Cine"
                           name="Cine"
-                          checked={I_pers.includes("Cine")}
+                          checked={I_pers !== undefined && I_pers.includes("Cine")}
                           onChange={Check_Pers}
                         />
                         <label className="form-check-label" htmlFor="Cine">
@@ -425,7 +425,7 @@ const CompEditBlog = ({ id }) => {
                           value="Modelado"
                           id="Modelado"
                           name="Modelado"
-                          checked={I_pers.includes("Modelado")}
+                          checked={I_pers !== undefined &&I_pers.includes("Modelado")}
                           onChange={Check_Pers}
                         />
                         <label className="form-check-label" htmlFor="Modelado">
@@ -439,7 +439,7 @@ const CompEditBlog = ({ id }) => {
                           value="Compras"
                           id="Compras"
                           name="Compras"
-                          checked={I_pers.includes("Compras")}
+                          checked={I_pers !== undefined &&I_pers.includes("Compras")}
                           onChange={Check_Pers}
                         />
                         <label className="form-check-label" htmlFor="Compras">
@@ -465,7 +465,7 @@ const CompEditBlog = ({ id }) => {
                           value="Desierto"
                           id="Desierto"
                           name="Desierto"
-                          checked={D_Pref.includes("Desierto")}
+                          checked={D_Pref !== undefined && D_Pref.includes("Desierto")}
                           onChange={CheckboxPref}
                         />
                         <label className="form-check-label" htmlFor="Desierto">
@@ -479,7 +479,7 @@ const CompEditBlog = ({ id }) => {
                           value="Playa"
                           id="Playa"
                           name="Playa"
-                          checked={D_Pref.includes("Playa")}
+                          checked={ D_Pref !== undefined && D_Pref.includes("Playa")}
                           onChange={CheckboxPref}
                         />
                         <label className="form-check-label" htmlFor="Playa">
@@ -493,7 +493,7 @@ const CompEditBlog = ({ id }) => {
                           value="Ciudad"
                           id="Ciudad"
                           name="Ciudad"
-                          checked={D_Pref.includes("Ciudad")}
+                          checked={D_Pref !== undefined && D_Pref.includes("Ciudad")}
                           onChange={CheckboxPref}
                         />
                         <label className="form-check-label" htmlFor="Ciudad">
@@ -507,7 +507,7 @@ const CompEditBlog = ({ id }) => {
                           value="Montaña"
                           id="Montaña"
                           name="Montaña"
-                          checked={D_Pref.includes("Montaña")}
+                          checked={D_Pref !== undefined && D_Pref.includes("Montaña")}
                           onChange={CheckboxPref}
                         />
                         <label className="form-check-label" htmlFor="Montaña">
