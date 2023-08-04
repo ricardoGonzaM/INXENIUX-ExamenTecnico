@@ -136,7 +136,6 @@ const CompEditBlog = ({ id }) => {
   };
 
   const getpartById = async () => {
-    console.log("https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/part/" + newId)
     const res = await axios.get("https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/part/" + newId)
     .then(response => {
       console.log(response.status)
@@ -144,9 +143,10 @@ const CompEditBlog = ({ id }) => {
     .catch(error => {
       console.log(error)
     });
-    setI_pers(res.data.data[0].I_pers);
-    setD_Pref(res.data.data[0].D_Pref);
-    setT_Hab(res.data.data[0].T_Hab);
+    console.log(res);
+    setI_pers(res.data[0].I_pers);
+    setD_Pref(res.data.D_Pref);
+    setT_Hab(res.data.data.T_Hab);
     setI_Mens(res.data.data[0].I_Mens);
     setV_año(res.data.data[0].V_año);
     setLibros(res.data.data[0].Libros);
