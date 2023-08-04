@@ -77,7 +77,8 @@ const CompEditBlog = ({ id }) => {
       Ap_Materno: Ap_Materno,
       Edad: Edad,
       Sexo: Sexo,
-    }).then(response => {
+    })
+    .then(response => {
       console.log(response.status);
     }).catch(error => {
       console.log(error);
@@ -88,7 +89,7 @@ const CompEditBlog = ({ id }) => {
     const update1 = await axios.put(
       `https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/dire/${newId}`,
       {
-        Calle: Calle,
+        Calle: "Calle test",
         N_Int: N_Int,
         N_Ext: N_Ext,
         Colonia: Colonia,
@@ -104,7 +105,7 @@ const CompEditBlog = ({ id }) => {
     console.log("Llego 3")
     const update2 = await axios.put(`https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/part/${newId}`,
       {
-        I_pers: I_pers,
+        I_pers: "Otro otro test",
         D_Pref: D_Pref,
         T_Hab: T_Hab,
         I_Mens: I_Mens,
@@ -118,7 +119,7 @@ const CompEditBlog = ({ id }) => {
     });
 
     console.log("Llego 4")
-    window.location.reload();
+    //window.location.reload();
   };
 
   useEffect(() => {
