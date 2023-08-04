@@ -115,7 +115,7 @@ const CompEditBlog = ({ id }) => {
     }).catch(error => {
       console.log(error);
     });
-  }
+  };
 
   useEffect(() => {
     getBlogById();
