@@ -20,7 +20,6 @@ const CompShowBlogs = () => {
   const getBlogs = async () => {
     const res = await axios.get(URI);
     setBlog(res.data.data);
-    console.log(res.data.data);
   };
   //procedimiento para eliminar un dato del blog
   const deleteBlog = async (id) => {
