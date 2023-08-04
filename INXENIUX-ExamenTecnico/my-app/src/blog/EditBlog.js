@@ -94,12 +94,14 @@ const CompEditBlog = ({ id }) => {
     );
 
     const update3 = await axios.put(`https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/gene/${newId}`, {
-      Nombre: Nombre,
+      Nombre: "Nombre",
       Ap_Paterno: Ap_Paterno,
       Ap_Materno: Ap_Materno,
       Edad: Edad,
       Sexo: Sexo,
     });
+
+    console.log(update3);
 
     window.location.reload();
   };
