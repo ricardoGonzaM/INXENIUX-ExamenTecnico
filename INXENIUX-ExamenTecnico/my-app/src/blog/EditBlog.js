@@ -69,7 +69,28 @@ const CompEditBlog = ({ id }) => {
   let newId = id.replace("#id", "");
   //procedimiento para actualizar
   const updateForm = async (e) => {
-    const update1 = await axios.put(
+    
+
+
+    window.location.reload();
+  };
+
+  const update1 = async (e) => {
+    e.preventDefault();
+    await axios.put(`https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/dire/${newId}`, {
+      Calle: Calle,
+      N_Int: N_Int,
+      N_Ext: N_Ext,
+      Colonia: Colonia,
+      Municipio: Municipio,
+      Estado: Estado,
+    });
+  };
+
+  /*
+  const update1 = async => (e) {
+
+    let x = await axios.put(
       `https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/dire/${newId}`,
       {
         Calle: Calle,
@@ -78,8 +99,10 @@ const CompEditBlog = ({ id }) => {
         Colonia: Colonia,
         Municipio: Municipio,
         Estado: Estado,
-      }
-    );
+      });
+  }
+  
+    
 
     const update2 = await axios.put(
       `https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/part/${newId}`,
@@ -94,18 +117,13 @@ const CompEditBlog = ({ id }) => {
     );
 
     const update3 = await axios.put(`https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/gene/${newId}`, {
-      Nombre: "Nombre",
+      Nombre: Nombre,
       Ap_Paterno: Ap_Paterno,
       Ap_Materno: Ap_Materno,
       Edad: Edad,
       Sexo: Sexo,
     });
-
-    console.log(update3);
-
-    window.location.reload();
-  };
-
+    */
   useEffect(() => {
     getBlogById();
     getdireById();
@@ -183,7 +201,7 @@ const CompEditBlog = ({ id }) => {
               </button>
             </div>
             <div className="modal-body">
-              <form onSubmit={updateForm}>
+              <form onSubmit={update1}>
                 {/* Generales */}
                 <fieldset className="field-container row form-group">
                   <legend>Generales</legend>
