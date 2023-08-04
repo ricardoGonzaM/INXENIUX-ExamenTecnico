@@ -396,7 +396,7 @@ const CompEditBlog = ({ id }) => {
                   <div className="input-group mb-3 alert">
                     <div className="input-group-prepend">
                       <span className="input-group-text" id="basic-addon1">
-                        Inters pers.:
+                        Inters pers:
                       </span>
                     </div>
                     <br />
@@ -541,8 +541,8 @@ const CompEditBlog = ({ id }) => {
                         </label>
                       </div>
                       <select
-                        value={T_Hab || ""}
-                        onChange={(e) => setT_Hab(e.target.value)}
+                        value={T_Hab}
+                        onChange={ (e)=> setT_Hab(e.target.value)}
                         className="form-select"
                         id="inputGroupSelect01"
                         name="T_Hab"
@@ -565,8 +565,8 @@ const CompEditBlog = ({ id }) => {
                         </label>
                       </div>
                       <select
-                        value={I_Mens || ""}
-                        onChange={(e) => setI_Mens(e.target.value)}
+                        value={I_Mens}
+                        onChange={ (e)=> setI_Mens(e.target.value)}
                         className="form-select"
                         name="I_Mens"
                       >
@@ -591,8 +591,8 @@ const CompEditBlog = ({ id }) => {
                         </label>
                       </div>
                       <select
-                        value={V_año || ""}
-                        onChange={(e) => setV_año(e.target.value)}
+                        value={V_año}
+                        onChange={ (e)=> setV_año(e.target.value)}
                         className="form-select"
                         id="inputGroupSelect01"
                         name="V_año"
@@ -615,8 +615,8 @@ const CompEditBlog = ({ id }) => {
                         </label>
                       </div>
                       <select
-                        value={Libros || ""}
-                        onChange={(e) => setLibros(e.target.value)}
+                        value={Libros}
+                        onChange={ (e)=> setLibros(e.target.value)}
                         className="form-select"
                         id="inputGroupSelect01"
                         name="Libros"
