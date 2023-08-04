@@ -82,7 +82,7 @@ const CompEditBlog = ({ id }) => {
     );
 
     const update2 = await axios.put(
-      "https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/part/" + newId,
+      `https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/part/${newId}`,
       {
         I_pers: I_pers,
         D_Pref: D_Pref,
@@ -93,7 +93,7 @@ const CompEditBlog = ({ id }) => {
       }
     );
 
-    const update3 = await axios.put(URI + newId, {
+    const update3 = await axios.put(`https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/gene/${newId}`, {
       Nombre: Nombre,
       Ap_Paterno: Ap_Paterno,
       Ap_Materno: Ap_Materno,
