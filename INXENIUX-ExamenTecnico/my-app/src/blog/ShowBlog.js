@@ -6,7 +6,7 @@ import CompEditBlog from "./EditBlog.js";
 import swal from "sweetalert";
 import DataTable from "datatables.net-dt";
 
-const URI = "http://localhost:8000/blogs/gene";
+const URI = "https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/gene";
 
 const CompShowBlogs = () => {
   let table = new DataTable("#myTable");
@@ -31,9 +31,9 @@ const CompShowBlogs = () => {
     }).then((Respuesta) => {
       if (Respuesta) {
         (async () => {
-          await axios.delete(`http://localhost:8000/blogs/gene/${id}`);
-          await axios.delete(`http://localhost:8000/blogs/dire/${id}`);
-          await axios.delete(`http://localhost:8000/blogs/part/${id}`);
+          await axios.delete(`https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/gene/${id}`);
+          await axios.delete(`https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/dire/${id}`);
+          await axios.delete(`https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/part/${id}`);
           getBlogs();
         })();
         swal({

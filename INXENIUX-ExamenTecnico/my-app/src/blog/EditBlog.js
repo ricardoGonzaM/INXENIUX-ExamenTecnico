@@ -1,17 +1,8 @@
-/*
-  TODO:
-    - Cambia nombres de funciones y variables a español y nombres significativos
-    - Agrega comentarios en español
-    - Dale formato a documentos
-    - Cambiar colores
-    - Haz obligatorio generales
-*/
-
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const URI = "http://localhost:8000/blogs/gene/";
+const URI = "https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/gene/";
 
 const CompEditBlog = ({ id }) => {
   /*Generales*/
@@ -80,7 +71,7 @@ const CompEditBlog = ({ id }) => {
   //procedimiento para actualizar
   const updateForm = async (e) => {
     const update1 = await axios.put(
-      "http://localhost:8000/blogs/dire/" + newId,
+      "https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/dire/" + newId,
       {
         Calle: Calle,
         N_Int: N_Int,
@@ -92,7 +83,7 @@ const CompEditBlog = ({ id }) => {
     );
 
     const update2 = await axios.put(
-      "http://localhost:8000/blogs/part/" + newId,
+      "https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/part/" + newId,
       {
         I_pers: I_pers,
         D_Pref: D_Pref,
@@ -130,7 +121,7 @@ const CompEditBlog = ({ id }) => {
   };
 
   const getdireById = async () => {
-    const res = await axios.get("http://localhost:8000/blogs/dire/" + newId);
+    const res = await axios.get("https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/dire/" + newId);
     setCalle(res.data.Calle);
     setN_Int(res.data.N_Int);
     setN_Ext(res.data.N_Ext);
@@ -140,7 +131,7 @@ const CompEditBlog = ({ id }) => {
   };
 
   const getpartById = async () => {
-    const res = await axios.get("http://localhost:8000/blogs/part/" + newId);
+    const res = await axios.get("https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/part/" + newId);
     setI_pers(res.data.I_pers);
     setD_Pref(res.data.D_Pref);
     setT_Hab(res.data.T_Hab);

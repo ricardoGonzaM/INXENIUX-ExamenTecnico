@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import "./createBlog.css";
 
-const URI = "http://localhost:8000/blogs/gene";
+const URI = "https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/gene";
 
 const FormModal = () => {
 
@@ -90,7 +90,7 @@ const FormModal = () => {
         Sexo: nuevoUsuario.Sexo,
       });
 
-      const postDirec = await axios.post("http://localhost:8000/blogs/dire", {
+      const postDirec = await axios.post("https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/dire", {
         Calle: nuevoUsuario.Calle,
         N_Int: nuevoUsuario.N_Int,
         N_Ext: nuevoUsuario.N_Ext,
@@ -99,7 +99,7 @@ const FormModal = () => {
         Estado: nuevoUsuario.Estado,
       });
 
-      const postParti = await axios.post("http://localhost:8000/blogs/part", {
+      const postParti = await axios.post("https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/part", {
         I_pers: selectedInters_Pers,
         D_Pref: selectedDest,
         T_Hab: nuevoUsuario.T_Hab,
