@@ -26,7 +26,7 @@ const BlogController = {
     getById: async (req, res) => {
     try {
         const { id } = req.params
-        const [rows, fields] = await db.query("select * from general where id = ?", [id])
+        const [rows, fields] = await db.query("select * from generales where id = ?", [id])
         res.json({
             data: rows
         })
@@ -41,7 +41,7 @@ const BlogController = {
     create: async (req, res) => {
     try {
         const { Nombre, Ap_Paterno, Ap_Materno, Edad, Sexo} = req.body
-        const sql = "insert into general (Nombre, Ap_Paterno, Ap_Materno, Edad, Sexo) values (?, ?, ?, ?, ?)"
+        const sql = "insert into generales (Nombre, Ap_Paterno, Ap_Materno, Edad, Sexo) values (?, ?, ?, ?, ?)"
         const [rows, fields] = await db.query(sql, [Nombre, Ap_Paterno, Ap_Materno, Edad, Sexo])
         res.json({
             data: rows
@@ -57,7 +57,7 @@ const BlogController = {
     delete: async (req, res) => {
         try {
             const { id } = req.params
-            const [rows, fields] = await db.query("delete from general where id = ?", [id])
+            const [rows, fields] = await db.query("delete from generales where id = ?", [id])
             res.json({
                 data: rows
             })
@@ -73,7 +73,7 @@ const BlogController = {
         try {
             const { Nombre, Ap_Paterno, Ap_Materno, Edad, Sexo } = req.body
             const { id } = req.params
-            const sql = "update general set Nombre = ?, Ap_Paterno = ?, Ap_Materno = ?, Edad = ?, Sexo = ? where id = ?"
+            const sql = "update generales set Nombre = ?, Ap_Paterno = ?, Ap_Materno = ?, Edad = ?, Sexo = ? where id = ?"
             const [rows, fields] = await db.query(sql, [Nombre, Ap_Paterno, Ap_Materno, Edad, Sexo, id])
             res.json({
                 data: rows
