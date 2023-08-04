@@ -113,8 +113,8 @@ const CompEditBlog = ({ id }) => {
   const getBlogById = async () => {
     const res = await axios.get(URI + newId);
     console.log(res);
-    setNombre(res.data.data.Nombre);
-    setAp_Paterno(res.data.data.Ap_Paterno);
+    setNombre(res.data.data.data.Nombre);
+    setAp_Paterno(res.data.data.data[0].Ap_Paterno);
     setAp_Materno(res.data.data.Ap_Materno);
     setEdad(res.data.data.Edad);
     setSexo(res.data.data.Sexo);
