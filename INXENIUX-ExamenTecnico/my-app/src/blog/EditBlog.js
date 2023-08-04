@@ -31,7 +31,6 @@ const CompEditBlog = ({ id }) => {
 
   const Check_Pers = (event) => {
     const { name, checked } = event.target;
-
     if (checked === false) {
       console.log("no-check");
       console.log("Antes: " + I_pers);
@@ -71,7 +70,7 @@ const CompEditBlog = ({ id }) => {
   //procedimiento para actualizar
   const updateForm = async (e) => {
     const update1 = await axios.put(
-      "https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/dire/" + newId,
+      `https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/dire/${newId}`,
       {
         Calle: Calle,
         N_Int: N_Int,
@@ -113,31 +112,31 @@ const CompEditBlog = ({ id }) => {
 
   const getBlogById = async () => {
     const res = await axios.get(URI + newId);
-    setNombre(res.data.Nombre);
-    setAp_Paterno(res.data.Ap_Paterno);
-    setAp_Materno(res.data.Ap_Materno);
-    setEdad(res.data.Edad);
-    setSexo(res.data.Sexo);
+    setNombre(res.data.data.Nombre);
+    setAp_Paterno(res.data.data.Ap_Paterno);
+    setAp_Materno(res.data.data.Ap_Materno);
+    setEdad(res.data.data.Edad);
+    setSexo(res.data.data.Sexo);
   };
 
   const getdireById = async () => {
     const res = await axios.get("https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/dire/" + newId);
-    setCalle(res.data.Calle);
-    setN_Int(res.data.N_Int);
-    setN_Ext(res.data.N_Ext);
-    setColonia(res.data.Colonia);
-    setMunicipio(res.data.Municipio);
-    setEstado(res.data.Estado);
+    setCalle(res.data.data.Calle);
+    setN_Int(res.data.data.N_Int);
+    setN_Ext(res.data.data.N_Ext);
+    setColonia(res.data.data.Colonia);
+    setMunicipio(res.data.data.Municipio);
+    setEstado(res.data.data.Estado);
   };
 
   const getpartById = async () => {
     const res = await axios.get("https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/part/" + newId);
-    setI_pers(res.data.I_pers);
-    setD_Pref(res.data.D_Pref);
-    setT_Hab(res.data.T_Hab);
-    setI_Mens(res.data.I_Mens);
-    setV_año(res.data.V_año);
-    setLibros(res.data.Libros);
+    setI_pers(res.data.data.I_pers);
+    setD_Pref(res.data.data.D_Pref);
+    setT_Hab(res.data.data.T_Hab);
+    setI_Mens(res.data.data.I_Mens);
+    setV_año(res.data.data.V_año);
+    setLibros(res.data.data.Libros);
   };
 
   const myStyle = {
