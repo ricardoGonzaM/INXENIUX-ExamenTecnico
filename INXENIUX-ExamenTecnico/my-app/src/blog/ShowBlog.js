@@ -19,7 +19,7 @@ const CompShowBlogs = () => {
   //procedimiento para mostrar todos los datos de blogs
   const getBlogs = async () => {
     const res = await axios.get(URI);
-    //setBlog(res.data);
+    setBlog(res.data.data);
     console.log(res.data.data);
   };
   //procedimiento para eliminar un dato del blog
