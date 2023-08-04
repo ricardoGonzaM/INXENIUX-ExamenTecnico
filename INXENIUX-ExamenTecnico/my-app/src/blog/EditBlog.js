@@ -108,8 +108,6 @@ const CompEditBlog = ({ id }) => {
     ).catch(error => {
       console.log(error);
     });
-
-    window.location.reload();
   };
 
   useEffect(() => {
