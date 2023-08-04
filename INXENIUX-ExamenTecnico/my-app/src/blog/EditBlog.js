@@ -67,10 +67,11 @@ const CompEditBlog = ({ id }) => {
   const navigate = useNavigate();
 
   let newId = id.replace("#id", "");
+  
   //procedimiento para actualizar
   const updateForm = async (e) => {
+    event.preventDefault();
 
-    console.log("Llego 1")
     const update3 = await axios.put(`https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/gene/${newId}`, {
       Nombre: "Test",
       Ap_Paterno: "Otro test",
@@ -83,8 +84,6 @@ const CompEditBlog = ({ id }) => {
     }).catch(error => {
       console.log(error);
     });
-
-    console.log("Llego 2")
     
     const update1 = await axios.put(
       `https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/dire/${newId}`,
@@ -100,9 +99,8 @@ const CompEditBlog = ({ id }) => {
       console.log(response.status);
     }).catch(error => {
       console.log(error);
-    });
+    }); 
 
-    console.log("Llego 3")
     const update2 = await axios.put(`https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/part/${newId}`,
       {
         I_pers: "Otro otro test",
@@ -117,9 +115,6 @@ const CompEditBlog = ({ id }) => {
     }).catch(error => {
       console.log(error);
     });
-
-    console.log("Llego 4")
-    //window.location.reload();
   };
 
   useEffect(() => {
