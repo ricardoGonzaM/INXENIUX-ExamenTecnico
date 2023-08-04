@@ -70,7 +70,7 @@ const CompEditBlog = ({ id }) => {
 
   //procedimiento para actualizar
   const updateForm = async (e) => {
-    event.preventDefault();
+    e.preventDefault();
 
     const update3 = await axios.put(`https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/gene/${newId}`, {
       Nombre: "Test",
