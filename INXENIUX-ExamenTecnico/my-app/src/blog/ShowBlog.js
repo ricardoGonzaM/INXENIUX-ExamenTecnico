@@ -63,7 +63,7 @@ const CompShowBlogs = () => {
               </tr>
             </thead>
             <tbody>
-              {blogs.map((blog) => (
+              {blogs !== undefined ? (blogs.map((blog) => (
                 <tr key={blog.id}>
                   <td>{blog.Nombre}</td>
                   <td>{blog.Ap_Paterno}</td>
@@ -81,7 +81,7 @@ const CompShowBlogs = () => {
                     </button>
                   </td>
                 </tr>
-              ))}
+              ))) : (<div><p>No hay datos!</p></div>)}
             </tbody>
           </table>
           <FormModal />
