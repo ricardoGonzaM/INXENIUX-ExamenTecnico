@@ -126,17 +126,6 @@ const CompEditBlog = ({ id }) => {
     setSexo(res.data.data[0].Sexo);
   };
 
-  const getdireById = async () => {
-    const res = await axios.get("https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/dire/" + newId);
-    console.log(res.data.data[0].Calle);
-    setCalle(res.data.data[0].Calle);
-    setN_Int(res.data.data[0].N_Int);
-    setN_Ext(res.data.data[0].N_Ext);
-    setColonia(res.data.data[0].Colonia);
-    setMunicipio(res.data.data[0].Municipio);
-    setEstado(res.data.data[0].Estado);
-  };
-
   const getpartById = async () => {
     const res = await axios.get(`https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/part/${newId}`)
     .then(response => {
@@ -152,6 +141,17 @@ const CompEditBlog = ({ id }) => {
     setI_Mens(res.data.data[0].I_Mens);
     setV_año(res.data.data[0].V_año);
     setLibros(res.data.data[0].Libros);
+  };
+
+  const getdireById = async () => {
+    const res = await axios.get("https://inxeniux-examen-tecnico-zfwa.vercel.app/blogs/dire/" + newId);
+    console.log(res.data.data[0].Calle);
+    setCalle(res.data.data[0].Calle);
+    setN_Int(res.data.data[0].N_Int);
+    setN_Ext(res.data.data[0].N_Ext);
+    setColonia(res.data.data[0].Colonia);
+    setMunicipio(res.data.data[0].Municipio);
+    setEstado(res.data.data[0].Estado);
   };
 
   const myStyle = {
