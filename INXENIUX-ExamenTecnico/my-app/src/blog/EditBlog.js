@@ -144,10 +144,10 @@ const CompEditBlog = ({ id }) => {
       console.log(error)
     });
     console.log(res);
-    setI_pers(res.data.data[0].I_pers);
-    setD_Pref(res.data.data[0].D_Pref);
-    setT_Hab(res.data.data[0].T_Hab);
-    setI_Mens(res.data.data[0].I_Mens);
+    setI_pers(res.data.data.I_pers);
+    setD_Pref(res.data.D_Pref);
+    setT_Hab(res.T_Hab);
+    setI_Mens(res.data[0].I_Mens);
     setV_año(res.data.data[0].V_año);
     setLibros(res.data.data[0].Libros);
   };
